@@ -1054,5 +1054,68 @@
     </footer>
   </div>
 
+  <!-- Cursor follower — your agent catching up to you -->
+  <div id="cursor-follower"></div>
+  <style>
+    #cursor-follower {
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      border: 1px dashed rgba(124,109,170,0.25);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: left 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+                  top 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+                  opacity 0.3s ease;
+      opacity: 0;
+    }
+    #cursor-follower.visible {
+      opacity: 1;
+    }
+    @media (max-width: 600px) {
+      #cursor-follower { display: none; }
+    }
+  </style>
+  <script>
+    (function() {
+      const follower = document.getElementById('cursor-follower');
+      let mouseX = 0, mouseY = 0;
+      let followerX = 0, followerY = 0;
+      let visible = false;
+
+      document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!visible) {
+          visible = true;
+          follower.classList.add('visible');
+          // Jump to initial position
+          followerX = mouseX;
+          followerY = mouseY;
+          follower.style.left = followerX + 'px';
+          follower.style.top = followerY + 'px';
+        }
+      });
+
+      document.addEventListener('mouseleave', function() {
+        visible = false;
+        follower.classList.remove('visible');
+      });
+
+      // Smooth follow with lerp
+      function animate() {
+        const ease = 0.08;
+        followerX += (mouseX - followerX) * ease;
+        followerY += (mouseY - followerY) * ease;
+        follower.style.left = followerX + 'px';
+        follower.style.top = followerY + 'px';
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+  </script>
+
 </body>
 </html>
