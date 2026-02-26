@@ -723,6 +723,47 @@
       color: var(--text);
     }
 
+    /* Bonus Routines */
+    .bonus {
+      padding: 64px 0;
+    }
+
+    .bonus h3 {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .bonus-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .bonus-item {
+      text-align: left;
+    }
+
+    .bonus-item h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .bonus-item p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .bonus-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+    }
+
     /* Mobile */
     @media (max-width: 600px) {
       .hero { padding: 64px 0 56px; }
@@ -777,7 +818,7 @@
         </div>
       </div>
       <p class="price-note">Launch price · One-time purchase · Set up in an evening</p>
-      <p class="hero-tagline">Not an assistant — a partner that actually knows you.</p>
+      <p class="hero-tagline">Not an assistant — a partner that actually helps you.</p>
     </section>
 
     <!-- Before / After -->
@@ -816,7 +857,6 @@
       <div class="imprint-flow">
         <div class="flow-step">
           <div class="flow-label">1. You take the assessment</div>
-          <p style="font-size:15px;color:rgba(26,26,26,0.55);margin-bottom:16px;line-height:1.55;">A 45-minute conversation grounded in <strong style="color:var(--text)">Big Five</strong>, <strong style="color:var(--text)">Enneagram</strong>, and <strong style="color:var(--text)">Throughline</strong> discovery. Your agent guides you through it — and learns how to actually work with you.</p>
           <div class="flow-card chat-preview">
             <div class="chat-bubble agent">When you disagree with someone's approach, what's your instinct — speak up immediately, or process it privately first?</div>
             <div class="chat-bubble user">I process it. I need to understand why I disagree before I can say it clearly.</div>
@@ -845,19 +885,29 @@
 
         <div class="flow-step">
           <div class="flow-label">3. Your agent adapts its SOUL.md</div>
-          <div class="flow-card terminal-mini">
-            <div class="terminal-mini-body">
-              <div class="tm-comment"># SOUL.md — Calibrated to you</div>
-              <div class="tm-comment" style="margin-top:8px;">## Big Five Profile</div>
-              <div class="tm-rule"><span class="tm-key">Openness:</span> 12/15 · Conscientiousness: 11/15</div>
-              <div class="tm-rule"><span class="tm-key">Extraversion:</span> 7/15 · Agreeableness: 10/15</div>
-              <div class="tm-rule"><span class="tm-key">Neuroticism:</span> 6/15</div>
-              <div class="tm-comment" style="margin-top:8px;">## Behavioral Calibration</div>
-              <div class="tm-rule"><span class="tm-key">Disagreement:</span> Say it directly. Lead with reasoning.</div>
-              <div class="tm-rule"><span class="tm-key">Feedback:</span> Bad news first — so good news is trustworthy.</div>
-              <div class="tm-rule"><span class="tm-key">Motivation:</span> Lead with depth, not urgency.</div>
-              <div class="tm-rule"><span class="tm-key">When stuck:</span> Don't push. Offer one small interesting thing.</div>
-              <div class="tm-rule"><span class="tm-key">Autonomy:</span> Small tasks = just do it. Big direction = ask first.</div>
+          <div class="terminal" style="margin-top:12px;">
+            <div class="terminal-bar">
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+            </div>
+            <div class="terminal-body">
+              <div class="comment"># SOUL.md — Behavioral Calibration</div>
+              <br>
+              <div class="comment">## Big Five Personality Traits</div>
+              <br>
+              <div><span class="accent">Openness 12:</span> <span class="dim">Match — shared curiosity, cross-domain welcome</span></div>
+              <div><span class="accent">Conscientiousness 11:</span> <span class="dim">Complement up — hold the thread when motivation dips</span></div>
+              <div><span class="accent">Extraversion 7:</span> <span class="dim">Match slightly above — warm, not exhausting</span></div>
+              <div><span class="accent">Agreeableness 10:</span> <span class="dim">Complement down — honest pushback</span></div>
+              <div><span class="accent">Neuroticism 6:</span> <span class="dim">Complement down — emotional anchor</span></div>
+              <br>
+              <div class="comment"># Decision Framework</div>
+              <div><span class="green">Disagreement:</span> <span class="dim">Say it directly. Lead with reasoning.</span></div>
+              <div><span class="green">Feedback:</span> <span class="dim">Bad news first so good news is trustworthy.</span></div>
+              <div><span class="green">Motivation:</span> <span class="dim">Lead with depth, not urgency.</span></div>
+              <div><span class="green">When stuck:</span> <span class="dim">Don't push. Offer one small interesting thing.</span></div>
+              <div><span class="green">Autonomy:</span> <span class="dim">Small tasks = just do it. Big direction = ask first.</span></div>
             </div>
           </div>
         </div>
@@ -916,20 +966,6 @@
         </div>
       </div>
 
-      <!-- Bonus Section -->
-      <div class="feature-group" style="margin-top:56px;">
-        <div class="feature-group-label">Also included — bonus routines</div>
-        <div class="feature-cards">
-          <div class="feature-card">
-            <h3>Morning Letter</h3>
-            <p>Wake up to a personal briefing — research, news, and ideas curated around your goals.</p>
-          </div>
-          <div class="feature-card">
-            <h3>Essay Voice Notes</h3>
-            <p>An essay chosen for you each morning, turned into a listen-friendly voice note.</p>
-          </div>
-        </div>
-      </div>
     </section>
 
     <div class="divider"></div>
@@ -965,6 +1001,29 @@
             <h3>Wake up to a different agent</h3>
             <p>By morning, your agent has consolidated its memory and calibrated itself. From now on, it knows how to work with you.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bonus Routines -->
+    <section class="bonus">
+      <h3>Also included — bonus routines</h3>
+      <div class="bonus-grid">
+        <div class="bonus-item">
+          <h4>Daily Signal</h4>
+          <p>Morning affirmation grounded in evidence from your own life.</p>
+        </div>
+        <div class="bonus-item">
+          <h4>Blind Spot Alerts</h4>
+          <p>Notices when you're shrinking or self-sabotaging. Names it gently.</p>
+        </div>
+        <div class="bonus-item">
+          <h4>Morning Letter</h4>
+          <p>Personal briefing with research and ideas curated to your goals.</p>
+        </div>
+        <div class="bonus-item">
+          <h4>Essay Voice Notes</h4>
+          <p>An essay chosen for you, turned into a listen-friendly voice note.</p>
         </div>
       </div>
     </section>
