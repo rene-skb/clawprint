@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clawprint — You're In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #fafaf9;
+      --surface: #ffffff;
+      --surface-warm: #f5f3f0;
+      --border: #e8e5e0;
+      --border-light: #f0ede8;
+      --text: #1a1a1a;
+      --text-muted: rgba(26,26,26,0.55);
+      --text-dim: rgba(26,26,26,0.35);
+      --accent: #7c6daa;
+      --accent-light: #9e96b8;
+      --accent-bg: rgba(124,109,170,0.06);
+      --accent-bg-hover: rgba(124,109,170,0.1);
+      --green: #3d8c5c;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Space Grotesk', -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 19px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Nav */
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 24px 0;
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    /* Thank you content */
+    .thanks {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0;
+    }
+
+    .thanks-icon {
+      font-size: 48px;
+      margin-bottom: 24px;
+    }
+
+    .thanks h1 {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .thanks .sub {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 48px;
+      max-width: 480px;
+    }
+
+    /* Download card */
+    .download-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .download-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .download-card p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.55;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: #6b5c99;
+    }
+
+    .download-meta {
+      margin-top: 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* Getting started steps */
+    .getting-started {
+      background: var(--surface-warm);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .getting-started h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .step:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      min-width: 24px;
+      padding-top: 2px;
+    }
+
+    .step-text {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .step-text strong {
+      color: var(--text);
+    }
+
+    /* Support section */
+    .support {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+
+    .support a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .support a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-dim);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .thanks { padding: 48px 0; }
+      .thanks h1 { font-size: 28px; }
+      .download-card, .getting-started { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Nav -->
+    <nav>
+      <div class="logo">claw<span>print</span></div>
+      <div class="nav-tag">for OpenClaw</div>
+    </nav>
+
+    <!-- Thank You -->
+    <section class="thanks">
+      <div class="thanks-icon">🐾</div>
+      <h1>You're in. Let's make it yours.</h1>
+      <p class="sub">Your agent is about to know you better than any AI you've ever used. Here's everything you need to get started.</p>
+
+      <!-- Download -->
+      <div class="download-card">
+        <h2>Download Clawprint</h2>
+        <p>The full package — personality assessment, behavioral calibration, memory system, daily routines, and everything else. Unzip and follow the setup guide.</p>
+        <a href="#" class="download-btn" id="download-link">
+          <span>↓</span> Download Clawprint v1.0
+        </a>
+        <div class="download-meta">ZIP · ~50KB · 19 files · Works with any OpenClaw setup</div>
+      </div>
+
+      <!-- Getting Started -->
+      <div class="getting-started">
+        <h2>Quick start</h2>
+        <div class="step">
+          <div class="step-num">1.</div>
+          <div class="step-text"><strong>Unzip</strong> the package into your OpenClaw workspace</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2.</div>
+          <div class="step-text"><strong>Read SETUP.md</strong> — it walks you through everything in about 15 minutes</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3.</div>
+          <div class="step-text"><strong>Start the Deep Self assessment</strong> — your agent will guide you through a 45-minute conversation that changes everything</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4.</div>
+          <div class="step-text"><strong>Watch it click.</strong> Your agent adapts its SOUL.md, calibrates to your personality, and starts working the way you do</div>
+        </div>
+      </div>
+
+      <!-- Support -->
+      <div class="support">
+        Questions? Reach out to <a href="mailto:scott@clawprint.dev">scott@clawprint.dev</a> — we're here to help you get set up. Join the <a href="https://discord.com/invite/clawd">OpenClaw community</a> to connect with other builders.
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Clawprint by <a href="https://scottkbell.com">Scott Bell</a> · Built for <a href="https://openclaw.ai">OpenClaw</a></p>
+    </footer>
+  </div>
+
+</body>
+</html>
