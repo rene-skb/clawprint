@@ -6,68 +6,87 @@
   <title>Clawprint — Your Agent Doesn't Know You Yet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #fafaf9;
+      --bg: #f8f6f3;
       --surface: #ffffff;
-      --surface-warm: #f5f3f0;
-      --border: #e8e5e0;
-      --border-light: #f0ede8;
+      --surface-warm: #f3f1ed;
+      --border: #e8e4de;
+      --border-light: #eeebe6;
       --text: #1a1a1a;
-      --text-muted: rgba(26,26,26,0.55);
-      --text-dim: rgba(26,26,26,0.35);
-      --accent: #7c6daa;
-      --accent-light: #9e96b8;
-      --accent-bg: rgba(124,109,170,0.06);
-      --accent-bg-hover: rgba(124,109,170,0.1);
-      --green: #3d8c5c;
+      --text-muted: #6b6660;
+      --text-dim: #a8a29e;
+      --accent: #2563eb;
+      --accent-soft: rgba(37,99,235,0.07);
+      --accent-hover: rgba(37,99,235,0.12);
+      --green: #16a34a;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Inter', -apple-system, sans-serif;
       --mono: 'JetBrains Mono', monospace;
-      --sans: 'Space Grotesk', -apple-system, sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--sans);
-      font-size: 19px;
-      line-height: 1.6;
+      font-size: 17px;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     .container {
-      max-width: 640px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 32px;
     }
 
     /* Nav */
     nav {
-      padding: 24px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(248,246,243,0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .nav-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 18px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .logo {
-      font-family: var(--mono);
-      font-size: 15px;
-      font-weight: 500;
+      font-family: var(--serif);
+      font-size: 20px;
       color: var(--text);
       letter-spacing: -0.02em;
     }
 
     .logo span {
+      font-style: italic;
       color: var(--accent);
     }
 
     .nav-tag {
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-dim);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
 
     /* Hero */
@@ -76,71 +95,37 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 96px 0;
-      margin-top: -72px;
+      padding: 140px 0 96px;
     }
 
     .hero h1 {
-      font-size: 44px;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 24px;
+      font-family: var(--serif);
+      font-size: clamp(40px, 6vw, 60px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin-bottom: 28px;
       color: var(--text);
-      text-wrap: balance;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
     }
 
     .hero-sub {
-      font-size: 20px;
-      line-height: 1.5;
+      font-size: 19px;
+      line-height: 1.6;
       color: var(--text-muted);
-      max-width: 540px;
-      margin-bottom: 32px;
-    }
-
-    .hero-tagline {
-      font-size: 16px;
-      font-style: italic;
-      color: var(--text-muted);
-      margin-top: 24px;
-    }
-
-    .hero-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-
-    .hero-points {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      max-width: 520px;
       margin-bottom: 40px;
-    }
-
-    .hero-point {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 16px;
-      color: var(--text);
-      line-height: 1.45;
-    }
-
-    .hero-point-icon {
-      color: var(--accent);
-      flex-shrink: 0;
-      margin-top: 2px;
+      font-weight: 300;
     }
 
     .cta-row {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 24px;
       flex-wrap: wrap;
     }
 
@@ -150,24 +135,25 @@
       background: var(--text);
       color: #fff;
       font-family: var(--sans);
-      font-size: 16px;
-      font-weight: 600;
-      padding: 14px 28px;
-      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 14px 32px;
+      border-radius: 10px;
       border: none;
       cursor: pointer;
       text-decoration: none;
-      transition: opacity 0.15s;
+      transition: all 0.3s var(--ease);
     }
 
     .btn-primary:hover {
-      opacity: 0.85;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     }
 
     .price-tag {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .price-original {
@@ -177,127 +163,216 @@
     }
 
     .price-current {
-      font-size: 22px;
-      font-weight: 600;
+      font-family: var(--serif);
+      font-size: 28px;
       color: var(--text);
     }
 
     .price-note {
       font-size: 13px;
       color: var(--text-dim);
-      margin-top: 12px;
+      margin-top: 16px;
     }
 
-    /* Deep Self */
-    .deep-self {
-      padding: 96px 0 80px;
+    /* Section spacing */
+    section {
+      padding: 96px 0;
     }
 
-    .deep-self-inner {
-      padding: 0;
+    .section-divider {
+      height: 1px;
+      background: var(--border);
     }
 
-    .deep-self h2 {
-      font-size: 28px;
-      font-weight: 700;
+    /* Section label */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    /* Section headings */
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4.5vw, 44px);
+      font-weight: 400;
+      line-height: 1.1;
       letter-spacing: -0.02em;
       margin-bottom: 20px;
     }
 
-    .deep-self p {
+    .section-heading em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .section-desc {
       font-size: 17px;
       color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 16px;
-      max-width: 540px;
+      max-width: 520px;
+      line-height: 1.65;
+      font-weight: 300;
     }
 
-    .deep-self p strong {
-      color: var(--text);
-      font-weight: 600;
+    /* What You Do / Get */
+    .value-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border-light);
     }
 
-    .framework-tags {
+    .value-block {
+      margin-bottom: 32px;
+    }
+
+    .value-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .value-points {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 24px;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .tag {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 500;
+    .value-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .value-point-icon {
       color: var(--accent);
-      background: var(--accent-bg);
-      padding: 6px 14px;
-      border-radius: 6px;
-      letter-spacing: 0.01em;
+      flex-shrink: 0;
+      margin-top: 3px;
+      font-size: 8px;
     }
 
-    .mini-divider {
-      width: 48px;
-      height: 1px;
+    /* Before / After */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
       background: var(--border);
-      margin: 64px 0;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 40px;
     }
 
-    .flow-headline {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-top: 0;
-      margin-bottom: 40px;
+    .compare-col {
+      padding: 40px 36px;
+    }
+
+    .compare-col.before {
+      background: var(--surface-warm);
+    }
+
+    .compare-col.after {
+      background: var(--surface);
+    }
+
+    .compare-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .compare-col.before .compare-label {
+      color: var(--text-dim);
+    }
+
+    .compare-col.after .compare-label {
+      color: var(--accent);
+    }
+
+    .compare-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .compare-col li {
+      font-size: 15px;
+      line-height: 1.55;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .compare-col.before li {
+      color: var(--text-dim);
+    }
+
+    .compare-col.after li {
       color: var(--text);
     }
 
-    /* Imprint Flow */
+    .compare-col li span {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Flow */
+    .flow-headline {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+
     .imprint-flow {
-      margin-top: 48px;
       display: flex;
       flex-direction: column;
       gap: 0;
     }
 
-    .flow-step {
-    }
-
     .flow-label {
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--text-muted);
       letter-spacing: 0.02em;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .flow-arrow {
       text-align: center;
-      font-size: 20px;
+      font-size: 18px;
       color: var(--text-dim);
-      padding: 16px 0;
+      padding: 20px 0;
     }
 
     .flow-card {
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
     }
 
     /* Chat preview */
     .chat-preview {
       background: var(--surface-warm);
-      padding: 24px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     .chat-bubble {
       font-size: 14px;
-      line-height: 1.5;
-      padding: 12px 16px;
-      border-radius: 12px;
+      line-height: 1.55;
+      padding: 14px 18px;
+      border-radius: 14px;
       max-width: 85%;
     }
 
@@ -317,27 +392,27 @@
     /* Profile preview */
     .profile-preview {
       background: var(--surface);
-      padding: 28px;
+      padding: 32px;
     }
 
     .profile-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
+      gap: 14px;
+      margin-bottom: 14px;
     }
 
     .profile-trait {
       font-family: var(--mono);
       font-size: 12px;
       color: var(--text-muted);
-      width: 130px;
+      width: 140px;
       flex-shrink: 0;
     }
 
     .profile-bar {
       flex: 1;
-      height: 6px;
+      height: 5px;
       background: var(--border-light);
       border-radius: 3px;
       overflow: hidden;
@@ -347,6 +422,8 @@
       height: 100%;
       background: var(--accent);
       border-radius: 3px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .profile-score {
@@ -359,8 +436,8 @@
     }
 
     .profile-meta {
-      margin-top: 20px;
-      padding-top: 16px;
+      margin-top: 24px;
+      padding-top: 20px;
       border-top: 1px solid var(--border-light);
       display: flex;
       flex-direction: column;
@@ -369,142 +446,118 @@
       color: var(--text-muted);
     }
 
-    /* Terminal mini */
-    .terminal-mini {
+    /* Terminal */
+    .terminal {
       background: #1a1a1e;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.08);
     }
 
-    .terminal-mini-body {
-      padding: 24px;
+    .terminal-bar {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    .tm-comment {
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .terminal-body {
+      padding: 24px;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .terminal-body .comment { color: rgba(255,255,255,0.25); }
+    .terminal-body .accent { color: #60a5fa; }
+    .terminal-body .green { color: #34d399; }
+    .terminal-body .dim { color: rgba(255,255,255,0.38); }
+
+    /* Signal preview */
+    .signal-preview {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .signal-preview .signal-body {
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .signal-preview .signal-detail {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+      font-weight: 300;
+    }
+
+    .signal-preview .signal-meta {
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--text-dim);
+    }
+
+    /* Psychology */
+    .psychology-section p {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      max-width: 560px;
+      font-weight: 300;
+    }
+
+    .psychology-section p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .psychology-section a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .framework-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .tag {
       font-family: var(--mono);
       font-size: 12px;
-      color: rgba(255,255,255,0.3);
-      margin-bottom: 4px;
-    }
-
-    .tm-rule {
-      font-family: var(--mono);
-      font-size: 13px;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.5;
-    }
-
-    .tm-key {
-      color: #6ee7a0;
       font-weight: 500;
-    }
-
-    /* Divider */
-    .divider {
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* Before/After */
-    .transformation {
-      padding: 40px 0 96px;
-    }
-
-    .transformation-headline {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 40px;
-      color: var(--text);
-    }
-
-    .compare-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .compare-col {
-      padding: 36px 32px;
-    }
-
-    .compare-col.before {
-      background: var(--surface-warm);
-    }
-
-    .compare-col.after {
-      background: var(--surface);
-    }
-
-    .compare-label {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .compare-col.before .compare-label {
-      color: var(--text-dim);
-    }
-
-    .compare-col.after .compare-label {
       color: var(--accent);
-    }
-
-    .compare-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .compare-col li {
-      font-size: 16px;
-      line-height: 1.5;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .compare-col.before li {
-      color: var(--text-dim);
-    }
-
-    .compare-col.after li {
-      color: var(--text);
-    }
-
-    .compare-col li span {
-      flex-shrink: 0;
-      margin-top: 1px;
+      background: var(--accent-soft);
+      padding: 8px 16px;
+      border-radius: 8px;
+      letter-spacing: 0.01em;
     }
 
     /* Features */
-    .features {
+    .features-section {
       padding: 96px 0;
     }
 
-    .features > h2 {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
-
-    .features > p {
-      color: var(--text-muted);
-      margin-bottom: 56px;
-      font-size: 17px;
-    }
-
     .feature-group {
-      margin-bottom: 48px;
+      margin-bottom: 40px;
     }
 
     .feature-group:last-child {
@@ -513,12 +566,12 @@
 
     .feature-group-label {
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 500;
       color: var(--accent);
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .feature-cards {
@@ -526,143 +579,149 @@
       grid-template-columns: 1fr 1fr;
       gap: 1px;
       background: var(--border);
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
-    }
-
-    .feature-cards.single {
-      grid-template-columns: 1fr;
     }
 
     .feature-card {
       background: var(--surface);
-      padding: 28px;
+      padding: 32px;
+      transition: all 0.4s var(--ease);
+    }
+
+    .feature-card:hover {
+      background: var(--accent-soft);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.04);
     }
 
     .feature-card h3 {
-      font-size: 17px;
-      font-weight: 600;
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 400;
       margin-bottom: 8px;
       letter-spacing: -0.01em;
     }
 
     .feature-card p {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    /* Terminal Preview */
-    .preview {
-      padding: 96px 0;
-    }
-
-    .preview h2 {
       font-size: 14px;
-      font-family: var(--mono);
-      font-weight: 500;
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 300;
     }
 
-    .terminal {
-      background: #1a1a1e;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .terminal-bar {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .terminal-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-    }
-
-    .terminal-body {
-      padding: 20px;
-      font-family: var(--mono);
-      font-size: 13px;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.5);
-      overflow-x: auto;
-    }
-
-    .terminal-body .comment { color: rgba(255,255,255,0.3); }
-    .terminal-body .accent { color: var(--accent-light); }
-    .terminal-body .green { color: #6ee7a0; }
-    .terminal-body .dim { color: rgba(255,255,255,0.4); }
-
-    /* How It Works */
-    .how {
+    /* Steps */
+    .steps-section {
       padding: 96px 0;
-    }
-
-    .how h2 {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 48px;
     }
 
     .steps {
       display: flex;
       flex-direction: column;
-      gap: 36px;
+      gap: 40px;
+      margin-top: 48px;
     }
 
     .step {
       display: grid;
-      grid-template-columns: 40px 1fr;
-      gap: 20px;
+      grid-template-columns: 48px 1fr;
+      gap: 24px;
+      align-items: start;
     }
 
     .step-num {
-      font-family: var(--mono);
-      font-size: 22px;
-      font-weight: 600;
+      font-family: var(--serif);
+      font-size: 32px;
       color: var(--accent);
-      letter-spacing: -0.02em;
+      line-height: 1;
+      padding-top: 2px;
     }
 
     .step h3 {
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 4px;
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 6px;
     }
 
     .step p {
       font-size: 15px;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* Bonus */
+    .bonus-section {
+      padding: 80px 0;
+    }
+
+    .bonus-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      margin-top: 32px;
+    }
+
+    .bonus-item {
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      transition: all 0.4s var(--ease);
+    }
+
+    .bonus-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.05);
+      border-color: var(--accent);
+    }
+
+    .bonus-icon {
+      width: 28px;
+      height: 28px;
+      margin-bottom: 14px;
+      color: var(--accent);
+    }
+
+    .bonus-item h4 {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+
+    .bonus-item p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      font-weight: 300;
     }
 
     /* CTA Bottom */
     .cta-bottom {
-      padding: 96px 0;
+      padding: 120px 0;
       text-align: center;
     }
 
     .cta-bottom h2 {
-      font-size: 36px;
-      font-weight: 700;
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 400;
       letter-spacing: -0.02em;
       margin-bottom: 16px;
     }
 
+    .cta-bottom h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
     .cta-bottom > p {
       color: var(--text-muted);
-      margin-bottom: 36px;
+      margin-bottom: 40px;
       font-size: 17px;
+      font-weight: 300;
     }
 
     .cta-bottom .cta-row {
@@ -670,36 +729,74 @@
     }
 
     /* FAQ */
-    .faq {
+    .faq-section {
       padding: 96px 0;
-    }
-
-    .faq h2 {
-      font-size: 14px;
-      font-family: var(--mono);
-      font-weight: 500;
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 40px;
     }
 
     .faq-list {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 0;
+      margin-top: 40px;
     }
 
-    .faq-item h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 6px;
+    .faq-item {
+      border-top: 1px solid var(--border);
+      overflow: hidden;
     }
 
-    .faq-item p {
+    .faq-item:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s;
+    }
+
+    .faq-question:hover {
+      color: var(--accent);
+    }
+
+    .faq-question h3 {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .faq-icon {
+      font-size: 20px;
+      color: var(--text-dim);
+      transition: transform 0.3s var(--ease);
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease-smooth), padding 0.4s var(--ease-smooth);
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+    }
+
+    .faq-answer p {
+      padding-bottom: 24px;
       font-size: 15px;
       color: var(--text-muted);
-      line-height: 1.55;
+      line-height: 1.65;
+      font-weight: 300;
     }
 
     /* Footer */
@@ -717,127 +814,164 @@
     footer a {
       color: var(--text-muted);
       text-decoration: none;
+      transition: color 0.2s;
     }
 
     footer a:hover {
-      color: var(--text);
-    }
-
-    /* Bonus Routines */
-    .bonus {
-      padding: 64px 0;
-    }
-
-    .bonus h3 {
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .bonus-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-    }
-
-    .bonus-item {
-      text-align: left;
-    }
-
-    .bonus-icon {
-      width: 28px;
-      height: 28px;
-      margin-bottom: 10px;
       color: var(--accent);
     }
 
-    .bonus-item h4 {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 4px;
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
     }
 
-    .bonus-item p {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.5;
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    @media (max-width: 600px) {
-      .bonus-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+    /* Stagger delays */
+    .reveal-d1 { transition-delay: 0.06s; }
+    .reveal-d2 { transition-delay: 0.12s; }
+    .reveal-d3 { transition-delay: 0.18s; }
+    .reveal-d4 { transition-delay: 0.24s; }
+
+    /* Cursor follower */
+    #cursor-follower {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      background: rgba(37, 99, 235, 0.35);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: width 0.3s var(--ease), height 0.3s var(--ease), background 0.3s;
+    }
+
+    #cursor-follower.visible {
+      opacity: 1;
+    }
+
+    /* Hero fade-in */
+    .hero-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: heroIn 0.8s var(--ease) forwards;
+    }
+
+    .hero-reveal-d1 { animation-delay: 0.1s; }
+    .hero-reveal-d2 { animation-delay: 0.2s; }
+    .hero-reveal-d3 { animation-delay: 0.35s; }
+    .hero-reveal-d4 { animation-delay: 0.5s; }
+
+    @keyframes heroIn {
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Mobile */
-    @media (max-width: 600px) {
-      .hero { padding: 64px 0 56px; }
-      .hero h1 { font-size: 32px; }
-      .hero p { font-size: 17px; }
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      .nav-inner { padding: 16px 24px; }
+
+      .hero { padding: 120px 0 72px; }
+      .hero h1 { font-size: 34px; }
+      .hero-sub { font-size: 17px; }
+
+      section { padding: 72px 0; }
+
       .compare-grid { grid-template-columns: 1fr; }
       .feature-cards { grid-template-columns: 1fr; }
-      .features > h2, .how h2, .cta-bottom h2 { font-size: 26px; }
-      .transformation, .features, .preview, .how, .cta-bottom, .faq {
-        padding: 56px 0;
-      }
+      .bonus-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+      .section-heading { font-size: 28px; }
+      .cta-bottom h2 { font-size: 32px; }
+      .cta-bottom { padding: 80px 0; }
+
+      .step { grid-template-columns: 36px 1fr; gap: 16px; }
+      .step-num { font-size: 24px; }
+
+      #cursor-follower { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .bonus-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- Nav -->
-    <nav>
+  <!-- Cursor follower -->
+  <div id="cursor-follower"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-inner">
       <div class="logo">claw<span>print</span></div>
       <div class="nav-tag">for OpenClaw</div>
-    </nav>
+    </div>
+  </nav>
+
+  <div class="container">
 
     <!-- Hero -->
     <section class="hero">
-      <h1>Your agent doesn't know you yet.</h1>
-      <p class="hero-sub">One assessment. Then everything changes.</p>
-      <p class="hero-label">What you do</p>
-      <div class="hero-points" style="margin-bottom:20px;">
-        <div class="hero-point">
-          <span class="hero-point-icon">○</span>
-          <span>A 45-minute conversation — Big Five, Enneagram, Throughline</span>
-        </div>
-      </div>
-      <p class="hero-label" style="margin-top:16px;">What you get</p>
-      <div class="hero-points">
-        <div class="hero-point">
-          <span class="hero-point-icon">○</span>
-          <span>A full psychological profile — your own operating system, revealed</span>
-        </div>
-        <div class="hero-point">
-          <span class="hero-point-icon">○</span>
-          <span>An agent calibrated to how you actually work</span>
-        </div>
-        <div class="hero-point">
-          <span class="hero-point-icon">○</span>
-          <span>A memory that never forgets — you just talk</span>
-        </div>
-        <div class="hero-point">
-          <span class="hero-point-icon">○</span>
-          <span>Smarter every day, learning from every mistake</span>
-        </div>
-      </div>
-      <div class="cta-row">
+      <h1 class="hero-reveal hero-reveal-d1">Your agent works for you.<br>Imagine if it <em>knew</em> you.</h1>
+      <p class="hero-sub hero-reveal hero-reveal-d2">How you think. What you're chasing. When to push and when to listen. One conversation, and it does.</p>
+      <div class="cta-row hero-reveal hero-reveal-d3">
         <span class="btn-primary" style="opacity:0.7;cursor:default;">Coming Soon</span>
         <div class="price-tag">
           <span class="price-original">$79</span>
           <span class="price-current">$49</span>
         </div>
       </div>
-      <p class="price-note">Launch price · One-time purchase · Set up in an evening</p>
+      <p class="price-note hero-reveal hero-reveal-d4">Launch price · One-time purchase · Set up in an evening</p>
     </section>
 
+    <!-- What You Do / Get -->
+    <section class="value-section">
+      <div class="value-block reveal">
+        <div class="section-label">What you do</div>
+        <div class="value-points">
+          <div class="value-point">
+            <span class="value-point-icon">●</span>
+            <span>A 25-minute conversation: Big Five, Enneagram, Throughline</span>
+          </div>
+        </div>
+      </div>
+      <div class="value-block reveal reveal-d1">
+        <div class="section-label" style="margin-top:8px;">What you get</div>
+        <div class="value-points">
+          <div class="value-point">
+            <span class="value-point-icon">●</span>
+            <span>A full psychological profile, your own operating system revealed</span>
+          </div>
+          <div class="value-point">
+            <span class="value-point-icon">●</span>
+            <span>An agent calibrated to how you actually work</span>
+          </div>
+          <div class="value-point">
+            <span class="value-point-icon">●</span>
+            <span>A memory that never forgets. You just talk.</span>
+          </div>
+          <div class="value-point">
+            <span class="value-point-icon">●</span>
+            <span>Smarter every day, learning from every mistake</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
     <!-- Before / After -->
-    <section class="transformation">
-      <h2 class="transformation-headline">Same agent. Different relationship.</h2>
-      <div class="compare-grid">
+    <section>
+      <h2 class="section-heading reveal">Same agent.<br><em>Different</em> relationship.</h2>
+      <div class="compare-grid reveal reveal-d1">
         <div class="compare-col before">
           <div class="compare-label">Without</div>
           <ul>
@@ -861,17 +995,16 @@
       </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="section-divider"></div>
 
-    <!-- Deep Self callout -->
-    <section class="deep-self">
-      <!-- Flow: Assessment → Profile → SOUL.md -->
-      <h3 class="flow-headline">From conversation to calibration</h3>
+    <!-- Deep Self Flow -->
+    <section>
+      <h2 class="flow-headline reveal">From conversation to <em>calibration</em></h2>
       <div class="imprint-flow">
-        <div class="flow-step">
+        <div class="flow-step reveal">
           <div class="flow-label">1. You take the assessment</div>
           <div class="flow-card chat-preview">
-            <div class="chat-bubble agent">When you disagree with someone's approach, what's your instinct — speak up immediately, or process it privately first?</div>
+            <div class="chat-bubble agent">When you disagree with someone's approach, what's your instinct: speak up immediately, or process it privately first?</div>
             <div class="chat-bubble user">I process it. I need to understand why I disagree before I can say it clearly.</div>
             <div class="chat-bubble agent">That tracks with high Openness and moderate Agreeableness. You value precision over speed in conflict.</div>
           </div>
@@ -879,14 +1012,14 @@
 
         <div class="flow-arrow">↓</div>
 
-        <div class="flow-step">
+        <div class="flow-step reveal">
           <div class="flow-label">2. Your profile emerges</div>
-          <div class="flow-card profile-preview">
-            <div class="profile-row"><span class="profile-trait">Openness</span><div class="profile-bar"><div class="profile-fill" style="width: 80%"></div></div><span class="profile-score">12/15</span></div>
-            <div class="profile-row"><span class="profile-trait">Conscientiousness</span><div class="profile-bar"><div class="profile-fill" style="width: 73%"></div></div><span class="profile-score">11/15</span></div>
-            <div class="profile-row"><span class="profile-trait">Extraversion</span><div class="profile-bar"><div class="profile-fill" style="width: 47%"></div></div><span class="profile-score">7/15</span></div>
-            <div class="profile-row"><span class="profile-trait">Agreeableness</span><div class="profile-bar"><div class="profile-fill" style="width: 67%"></div></div><span class="profile-score">10/15</span></div>
-            <div class="profile-row"><span class="profile-trait">Neuroticism</span><div class="profile-bar"><div class="profile-fill" style="width: 40%"></div></div><span class="profile-score">6/15</span></div>
+          <div class="flow-card profile-preview" id="profile-card">
+            <div class="profile-row"><span class="profile-trait">Openness</span><div class="profile-bar"><div class="profile-fill" data-width="80"></div></div><span class="profile-score">12/15</span></div>
+            <div class="profile-row"><span class="profile-trait">Conscientiousness</span><div class="profile-bar"><div class="profile-fill" data-width="73"></div></div><span class="profile-score">11/15</span></div>
+            <div class="profile-row"><span class="profile-trait">Extraversion</span><div class="profile-bar"><div class="profile-fill" data-width="47"></div></div><span class="profile-score">7/15</span></div>
+            <div class="profile-row"><span class="profile-trait">Agreeableness</span><div class="profile-bar"><div class="profile-fill" data-width="67"></div></div><span class="profile-score">10/15</span></div>
+            <div class="profile-row"><span class="profile-trait">Neuroticism</span><div class="profile-bar"><div class="profile-fill" data-width="40"></div></div><span class="profile-score">6/15</span></div>
             <div class="profile-meta">
               <span>Enneagram: 5w4 — The Iconoclast</span>
               <span>Throughline: Translating hidden layers into something tangible</span>
@@ -896,9 +1029,9 @@
 
         <div class="flow-arrow">↓</div>
 
-        <div class="flow-step">
+        <div class="flow-step reveal">
           <div class="flow-label">3. Your agent adapts its SOUL.md</div>
-          <div class="terminal" style="margin-top:12px;">
+          <div class="terminal">
             <div class="terminal-bar">
               <div class="terminal-dot"></div>
               <div class="terminal-dot"></div>
@@ -924,27 +1057,27 @@
             </div>
           </div>
         </div>
+
         <div class="flow-arrow">↓</div>
 
-        <div class="flow-step">
+        <div class="flow-step reveal">
           <div class="flow-label">4. Your agent shows up</div>
-          <div class="flow-card signal-preview" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;">
-            <div style="font-size:17px;font-weight:500;line-height:1.5;margin-bottom:12px;">You belong in those rooms. The ones you've been hesitating to enter.</div>
-            <div style="font-size:14px;color:rgba(26,26,26,0.55);line-height:1.5;margin-bottom:12px;">Last week you led a discussion that changed the project's direction. Two months ago you published something that still gets mentioned. This isn't a guess — it's your pattern. You show up and things shift.</div>
-            <div style="font-size:12px;font-family:var(--mono);color:var(--text-dim);">Daily Signal · 8:22 AM</div>
+          <div class="signal-preview">
+            <div class="signal-body">You belong in those rooms. The ones you've been hesitating to enter.</div>
+            <div class="signal-detail">Last week you led a discussion that changed the project's direction. Two months ago you published something that still gets mentioned. This isn't a guess. It's your pattern. You show up and things shift.</div>
+            <div class="signal-meta">Daily Signal · 8:22 AM</div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="section-divider"></div>
 
     <!-- Psychology -->
-    <section class="deep-self">
-      <div class="deep-self-inner">
-        <h2>Built on real psychology.</h2>
-        <p>Clawprint's assessment is grounded in the <strong>Big Five</strong> personality model — the most validated framework in personality psychology, and <a href="https://arxiv.org/abs/2410.19238" target="_blank" style="color:var(--accent);text-decoration:underline;">now proven to work for AI agents too</a>. Combined with the <strong>Enneagram</strong> for motivation patterns and <strong>Throughline</strong> discovery for your core direction, it gives your agent a real understanding of who you are — not a vibe check.</p>
+    <section class="psychology-section">
+      <h2 class="section-heading reveal">Built on <em>real</em> psychology.</h2>
+      <div class="reveal reveal-d1">
+        <p>Clawprint's assessment is grounded in the <strong>Big Five</strong> personality model, the most validated framework in personality psychology, and <a href="https://arxiv.org/abs/2410.19238" target="_blank">now proven to work for AI agents too</a>. Combined with the <strong>Enneagram</strong> for motivation patterns and <strong>Throughline</strong> discovery for your core direction, it gives your agent a real understanding of who you are.</p>
         <p>The result is an agent calibrated to your actual personality. How you handle disagreement. What motivates you. When to push and when to back off. The agent learns you. You learn yourself.</p>
         <div class="framework-tags">
           <span class="tag">Big Five (OCEAN)</span>
@@ -954,15 +1087,14 @@
       </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="section-divider"></div>
 
     <!-- Features -->
-    <section class="features">
-      <h2>What's inside</h2>
-      <p>Everything you need to go from blank slate to calibrated partner.</p>
+    <section class="features-section">
+      <h2 class="section-heading reveal">What's <em>inside</em></h2>
+      <p class="section-desc reveal reveal-d1" style="margin-bottom:48px;">Everything you need to go from blank slate to calibrated partner.</p>
 
-      <!-- Group 1: Know You -->
-      <div class="feature-group">
+      <div class="feature-group reveal">
         <div class="feature-group-label">It gets you</div>
         <div class="feature-cards">
           <div class="feature-card">
@@ -976,23 +1108,21 @@
         </div>
       </div>
 
-      <!-- Group 2: Remember -->
-      <div class="feature-group">
+      <div class="feature-group reveal">
         <div class="feature-group-label">It remembers everything</div>
         <div class="feature-cards">
           <div class="feature-card">
             <h3>3-Layer Memory</h3>
-            <p>Daily context, key people, long-term lessons — remembered. You just talk.</p>
+            <p>Daily context, key people, long-term lessons. Remembered. You just talk.</p>
           </div>
           <div class="feature-card">
             <h3>Error Learning</h3>
-            <p>Logs every mistake — what went wrong, why, the fix. Never fails the same way twice.</p>
+            <p>Logs every mistake: what went wrong, why, the fix. Never fails the same way twice.</p>
           </div>
         </div>
       </div>
 
-      <!-- Group 3: Background -->
-      <div class="feature-group">
+      <div class="feature-group reveal">
         <div class="feature-group-label">It works while you don't</div>
         <div class="feature-cards">
           <div class="feature-card">
@@ -1005,38 +1135,37 @@
           </div>
         </div>
       </div>
-
     </section>
 
-    <div class="divider"></div>
+    <div class="section-divider"></div>
 
-    <!-- How It Works -->
-    <section class="how">
-      <h2>Set up in an evening</h2>
+    <!-- Steps -->
+    <section class="steps-section">
+      <h2 class="section-heading reveal">Set up in an <em>evening</em></h2>
       <div class="steps">
-        <div class="step">
-          <div class="step-num">01</div>
+        <div class="step reveal">
+          <div class="step-num">1</div>
           <div>
             <h3>Drop the files in</h3>
-            <p>Copy Clawprint templates into your OpenClaw workspace. Memory structure, agent config, crons — all pre-built.</p>
+            <p>Copy Clawprint templates into your OpenClaw workspace. Memory structure, agent config, crons. All pre-built.</p>
           </div>
         </div>
-        <div class="step">
-          <div class="step-num">02</div>
+        <div class="step reveal reveal-d1">
+          <div class="step-num">2</div>
           <div>
             <h3>Run the assessment</h3>
             <p>Your agent guides you through a conversational personality assessment. It learns how you think, decide, and communicate.</p>
           </div>
         </div>
-        <div class="step">
-          <div class="step-num">03</div>
+        <div class="step reveal reveal-d2">
+          <div class="step-num">3</div>
           <div>
             <h3>Agent calibrates itself</h3>
             <p>Results get synthesized into behavioral rules and encoded into SOUL.md. Your agent now knows how to work with you specifically.</p>
           </div>
         </div>
-        <div class="step">
-          <div class="step-num">04</div>
+        <div class="step reveal reveal-d3">
+          <div class="step-num">4</div>
           <div>
             <h3>Wake up to a different agent</h3>
             <p>By morning, your agent has consolidated its memory and calibrated itself. From now on, it knows how to work with you.</p>
@@ -1046,25 +1175,26 @@
     </section>
 
     <!-- Bonus Routines -->
-    <section class="bonus">
-      <h3>Also included — bonus routines</h3>
+    <section class="bonus-section">
+      <div class="section-label reveal">Also included</div>
+      <h2 class="section-heading reveal reveal-d1" style="margin-bottom:0;">Bonus <em>routines</em></h2>
       <div class="bonus-grid">
-        <div class="bonus-item">
+        <div class="bonus-item reveal">
           <svg class="bonus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M8 7v10M4 10v4M16 7v10M20 10v4"/></svg>
           <h4>Daily Signal</h4>
           <p>Recurring evidence of growth and expansion from your own life.</p>
         </div>
-        <div class="bonus-item">
+        <div class="bonus-item reveal reveal-d1">
           <svg class="bonus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
           <h4>Blind Spot Alerts</h4>
           <p>Notices when you're shrinking or self-sabotaging. Names it gently.</p>
         </div>
-        <div class="bonus-item">
+        <div class="bonus-item reveal reveal-d2">
           <svg class="bonus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
           <h4>Morning Letter</h4>
           <p>Personal briefing with research and ideas curated to your goals.</p>
         </div>
-        <div class="bonus-item">
+        <div class="bonus-item reveal reveal-d3">
           <svg class="bonus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a4 4 0 014 4v4a4 4 0 01-8 0V7a4 4 0 014-4z"/><path d="M19 11a7 7 0 01-14 0"/><path d="M12 18v3"/></svg>
           <h4>Voice Essays</h4>
           <p>A daily essay chosen for you, turned into a listen-friendly audio note.</p>
@@ -1072,43 +1202,69 @@
       </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="section-divider"></div>
 
     <!-- CTA Bottom -->
     <section class="cta-bottom">
-      <h2>Make it yours.</h2>
-      <p>Everything is markdown. Change anything. It's your agent.</p>
-      <div class="cta-row">
+      <h2 class="reveal">Make it <em>yours.</em></h2>
+      <p class="reveal reveal-d1">Everything is markdown. Change anything. It's your agent.</p>
+      <div class="cta-row reveal reveal-d2">
         <span class="btn-primary" style="opacity:0.7;cursor:default;">Coming Soon</span>
       </div>
-      <p class="price-note"><span class="price-original">$79</span> &nbsp;launch price · one-time · includes updates</p>
+      <p class="price-note reveal reveal-d3"><span class="price-original">$79</span> &nbsp;launch price · one-time · includes updates</p>
     </section>
 
-    <div class="divider"></div>
+    <div class="section-divider"></div>
 
     <!-- FAQ -->
-    <section class="faq">
-      <h2>Questions</h2>
+    <section class="faq-section">
+      <div class="section-label reveal">FAQ</div>
+      <h2 class="section-heading reveal reveal-d1"><em>Questions</em></h2>
       <div class="faq-list">
-        <div class="faq-item">
-          <h3>Do I need OpenClaw?</h3>
-          <p>Yes. Clawprint uses OpenClaw's cron system, sub-agents, memory tools, and channel integrations. You'll need a running gateway.</p>
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            <h3>Do I need OpenClaw?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Yes. Clawprint uses OpenClaw's cron system, sub-agents, memory tools, and channel integrations. You'll need a running gateway.</p>
+          </div>
         </div>
-        <div class="faq-item">
-          <h3>How technical do I need to be?</h3>
-          <p>Comfortable with a terminal and editing text files. No coding — everything is markdown and JSON. The guide walks you through each step.</p>
+        <div class="faq-item reveal reveal-d1">
+          <div class="faq-question">
+            <h3>How technical do I need to be?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Comfortable with a terminal and editing text files. No coding. Everything is markdown and JSON. The guide walks you through each step.</p>
+          </div>
         </div>
-        <div class="faq-item">
-          <h3>Can I customize everything?</h3>
-          <p>It's all files in your workspace. Change times, swap topics, adjust the assessment, edit crons. You own it completely.</p>
+        <div class="faq-item reveal reveal-d2">
+          <div class="faq-question">
+            <h3>Can I customize everything?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>It's all files in your workspace. Change times, swap topics, adjust the assessment, edit crons. You own it completely.</p>
+          </div>
         </div>
-        <div class="faq-item">
-          <h3>What model do I need?</h3>
-          <p>Works with any model OpenClaw supports. Deep Self and research work best on Opus or Sonnet. Everything else runs on anything.</p>
+        <div class="faq-item reveal reveal-d3">
+          <div class="faq-question">
+            <h3>What model do I need?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Works with any model OpenClaw supports. Deep Self and research work best on Opus or Sonnet. Everything else runs on anything.</p>
+          </div>
         </div>
-        <div class="faq-item">
-          <h3>Is this a subscription?</h3>
-          <p>No. One-time purchase. You get everything plus future updates. Your API costs are your own — Clawprint doesn't add any.</p>
+        <div class="faq-item reveal reveal-d4">
+          <div class="faq-question">
+            <h3>Is this a subscription?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>No. One-time purchase. You get everything plus future updates. Your API costs are your own. Clawprint doesn't add any.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1117,95 +1273,16 @@
     <footer>
       <p>Clawprint by <a href="https://scottkbell.com">Scott Bell</a> · Built for <a href="https://openclaw.ai">OpenClaw</a></p>
     </footer>
-  </div>
 
-  <!-- Cursor follower — your agent catching up to you -->
-  <div id="cursor-follower"></div>
-  <style>
-    #cursor-follower {
-      position: fixed;
-      width: 32px;
-      height: 32px;
-      background: rgba(124, 109, 170, 0.55);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-    }
-    #cursor-follower.visible {
-      opacity: 1;
-    }
-    @media (max-width: 600px) {
-      #cursor-follower { display: none; }
-    }
-  </style>
-  <!-- Dev Control Panel -->
-  <div id="dev-panel" style="
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 16px 20px;
-    z-index: 10000;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: #aaa;
-    min-width: 240px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  ">
-    <div style="font-weight: 600; color: #fff; margin-bottom: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;">🐾 Cursor Follower</div>
-    
-    <label style="display:block; margin-bottom: 8px;">
-      Size: <span id="val-size">32</span>px
-      <input type="range" id="ctl-size" min="8" max="120" value="32" style="width:100%; margin-top:4px; accent-color: #7c6daa;">
-    </label>
-    
-    <label style="display:block; margin-bottom: 8px;">
-      Opacity: <span id="val-opacity">0.70</span>
-      <input type="range" id="ctl-opacity" min="5" max="100" value="70" style="width:100%; margin-top:4px; accent-color: #7c6daa;">
-    </label>
-    
-    <label style="display:block; margin-bottom: 8px;">
-      Easing: <span id="val-ease">0.08</span>
-      <input type="range" id="ctl-ease" min="1" max="30" value="8" style="width:100%; margin-top:4px; accent-color: #7c6daa;">
-    </label>
-    
-    <label style="display:block; margin-bottom: 8px;">
-      Color: <input type="color" id="ctl-color" value="#a09baf" style="vertical-align: middle; border: none; background: none; width: 28px; height: 28px; cursor: pointer;">
-      <span id="val-color">#a09baf</span>
-    </label>
-
-    <label style="display:block; margin-bottom: 12px;">
-      Blur: <span id="val-blur">0</span>px
-      <input type="range" id="ctl-blur" min="0" max="20" value="0" style="width:100%; margin-top:4px; accent-color: #7c6daa;">
-    </label>
-
-    <button id="btn-copy" style="
-      width: 100%;
-      padding: 8px;
-      background: #7c6daa;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-family: inherit;
-      font-size: 11px;
-      cursor: pointer;
-      font-weight: 600;
-    ">Copy CSS Values</button>
-    <div id="copy-msg" style="text-align:center; margin-top:6px; color:#7c6daa; font-size:10px; opacity:0; transition: opacity 0.3s;"></div>
   </div>
 
   <script>
     (function() {
+      // Cursor follower
       const follower = document.getElementById('cursor-follower');
       let mouseX = 0, mouseY = 0;
       let followerX = 0, followerY = 0;
       let visible = false;
-      let ease = 0.19;
 
       document.addEventListener('mousemove', function(e) {
         mouseX = e.clientX;
@@ -1215,8 +1292,6 @@
           follower.classList.add('visible');
           followerX = mouseX;
           followerY = mouseY;
-          follower.style.left = followerX + 'px';
-          follower.style.top = followerY + 'px';
         }
       });
 
@@ -1225,64 +1300,71 @@
         follower.classList.remove('visible');
       });
 
-      function animate() {
-        followerX += (mouseX - followerX) * ease;
-        followerY += (mouseY - followerY) * ease;
+      function animateCursor() {
+        followerX += (mouseX - followerX) * 0.12;
+        followerY += (mouseY - followerY) * 0.12;
         follower.style.left = followerX + 'px';
         follower.style.top = followerY + 'px';
-        requestAnimationFrame(animate);
+        requestAnimationFrame(animateCursor);
       }
-      animate();
+      animateCursor();
 
-      // Dev panel controls
-      const ctlSize = document.getElementById('ctl-size');
-      const ctlOpacity = document.getElementById('ctl-opacity');
-      const ctlEase = document.getElementById('ctl-ease');
-      const ctlColor = document.getElementById('ctl-color');
-      const ctlBlur = document.getElementById('ctl-blur');
+      // Scroll reveal
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
 
-      function update() {
-        const size = ctlSize.value;
-        const opacity = ctlOpacity.value / 100;
-        const color = ctlColor.value;
-        const blur = ctlBlur.value;
-        ease = ctlEase.value / 100;
+            // Animate profile bars when profile card becomes visible
+            if (entry.target.id === 'profile-card' || entry.target.querySelector('.profile-fill')) {
+              var fills = entry.target.querySelectorAll('.profile-fill');
+              fills.forEach(function(fill) {
+                var w = fill.getAttribute('data-width');
+                if (w) {
+                  setTimeout(function() { fill.style.width = w + '%'; }, 200);
+                }
+              });
+            }
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-        follower.style.width = size + 'px';
-        follower.style.height = size + 'px';
-        
-        // Convert hex to rgb for rgba
-        const r = parseInt(color.slice(1,3), 16);
-        const g = parseInt(color.slice(3,5), 16);
-        const b = parseInt(color.slice(5,7), 16);
-        follower.style.background = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
-        follower.style.filter = blur > 0 ? 'blur(' + blur + 'px)' : 'none';
+      document.querySelectorAll('.reveal').forEach(function(el) {
+        observer.observe(el);
+      });
 
-        document.getElementById('val-size').textContent = size;
-        document.getElementById('val-opacity').textContent = opacity.toFixed(2);
-        document.getElementById('val-ease').textContent = (ctlEase.value / 100).toFixed(2);
-        document.getElementById('val-color').textContent = color;
-        document.getElementById('val-blur').textContent = blur;
+      // Also observe the profile card specifically
+      var profileCard = document.getElementById('profile-card');
+      if (profileCard) {
+        var profileObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              var fills = entry.target.querySelectorAll('.profile-fill');
+              fills.forEach(function(fill, i) {
+                var w = fill.getAttribute('data-width');
+                if (w) {
+                  setTimeout(function() { fill.style.width = w + '%'; }, 300 + i * 120);
+                }
+              });
+              profileObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        profileObs.observe(profileCard);
       }
 
-      ctlSize.addEventListener('input', update);
-      ctlOpacity.addEventListener('input', update);
-      ctlEase.addEventListener('input', update);
-      ctlColor.addEventListener('input', update);
-      ctlBlur.addEventListener('input', update);
-
-      document.getElementById('btn-copy').addEventListener('click', function() {
-        const css = 'width: ' + ctlSize.value + 'px; height: ' + ctlSize.value + 'px; background: rgba(' + 
-          parseInt(ctlColor.value.slice(1,3),16) + ',' + 
-          parseInt(ctlColor.value.slice(3,5),16) + ',' + 
-          parseInt(ctlColor.value.slice(5,7),16) + ',' + 
-          (ctlOpacity.value/100).toFixed(2) + '); ease: ' + 
-          (ctlEase.value/100).toFixed(2) + '; filter: blur(' + ctlBlur.value + 'px);';
-        navigator.clipboard.writeText(css);
-        const msg = document.getElementById('copy-msg');
-        msg.textContent = 'Copied!';
-        msg.style.opacity = '1';
-        setTimeout(function() { msg.style.opacity = '0'; }, 1500);
+      // FAQ collapsible
+      document.querySelectorAll('.faq-question').forEach(function(q) {
+        q.addEventListener('click', function() {
+          var item = q.parentElement;
+          var wasOpen = item.classList.contains('open');
+          // Close all
+          document.querySelectorAll('.faq-item.open').forEach(function(i) {
+            i.classList.remove('open');
+          });
+          // Toggle clicked
+          if (!wasOpen) item.classList.add('open');
+        });
       });
     })();
   </script>
