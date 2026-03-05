@@ -1,0 +1,1 @@
+- [ ] Investigate Clawprint font — may be same as Polylogue / OpenClaw default. Find distinctive alternative. (Parked Feb 27)

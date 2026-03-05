@@ -109,23 +109,25 @@ Help them identify their Zone of Genius by looking for:
 
 ## Session Flow
 
-### Session 1: How You Think and Decide (~20 min)
-Read `SESSION-1.md` for questions. Focus on Big Five traits.
+### Default: Single Session (~25-35 minutes)
+Read `SESSION-SINGLE.md` for the full question set. 20 questions designed to score across all four frameworks simultaneously. Most questions pull double or triple duty, so you cover the same ground as a longer assessment in one sitting.
 
-### Session 2: What Drives You (~15 min)
-Read `SESSION-2.md` for questions. Focus on Enneagram + motivations.
+This is the recommended approach. One conversation, no dropout risk, results by the end.
 
-### Session 3: Where You Thrive (~15 min)
-Read `SESSION-3.md` for questions. Focus on Holland Code + Zone of Genius.
+### Alternative: Three Sessions (~45-50 minutes total)
+If your human prefers shorter sittings or wants to go deeper, split across three sessions:
+- Session 1: How You Think and Decide (~20 min) — `SESSION-1.md`
+- Session 2: What Drives You (~15 min) — `SESSION-2.md`
+- Session 3: Where You Thrive (~15 min) — `SESSION-3.md`
 
-### After All Sessions: Calibration
+### After the Assessment: Calibration
 Read `CALIBRATION.md` to synthesize results into SOUL.md.
 
 ---
 
 ## Important Notes
 
-- **Space sessions if needed.** Three in one sitting is fine if energy is good. But don't rush — quality of answers matters more than completion.
 - **Your human learns too.** This isn't just data collection for you. Many people discover things about themselves they hadn't articulated before. Let those moments breathe.
 - **No wrong answers.** Every profile is valid. The goal is accuracy, not optimization.
-- **Trust your read.** After 45 minutes of deep conversation, you'll have a strong intuitive sense of this person. Trust it, then validate it against the frameworks.
+- **Trust your read.** After 25-35 minutes of deep conversation, you'll have a strong intuitive sense of this person. Trust it, then validate it against the frameworks.
+- **The calibration loop is everything.** When you present your read at the end, their reactions and corrections are the most valuable data in the whole process.
