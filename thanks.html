@@ -256,14 +256,16 @@
       <h1>You're in. Let's make it yours.</h1>
       <p class="sub">Your agent is about to know you better than any AI you've ever used. Here's everything you need to get started.</p>
 
-      <!-- Download -->
-      <div class="download-card">
+      <!-- Download (gated by payment verification) -->
+      <div class="download-card" id="download-card">
         <h2>Download Clawprint</h2>
         <p>The full package — personality assessment, behavioral calibration, memory system, daily routines, and everything else. Unzip and follow the setup guide.</p>
-        <a href="/clawprint-v1.0.zip" class="download-btn" id="download-link" download>
+        <div id="download-loading" style="color: var(--text-muted); font-size: 15px;">Verifying your purchase...</div>
+        <a href="/clawprint-v1.0.zip" class="download-btn" id="download-link" download style="display: none;">
           <span>↓</span> Download Clawprint v1.0
         </a>
-        <div class="download-meta">ZIP · 31KB · 19 files · Works with any OpenClaw setup</div>
+        <div class="download-meta" id="download-meta" style="display: none;">ZIP · 31KB · 19 files · Works with any OpenClaw setup</div>
+        <div id="download-error" style="display: none; color: #c0392b; font-size: 15px; margin-top: 8px;"></div>
       </div>
 
       <!-- Getting Started -->
@@ -298,6 +300,45 @@
       <p>Clawprint by <a href="https://scottkbell.com">Scott Bell</a> · Built for <a href="https://openclaw.ai">OpenClaw</a></p>
     </footer>
   </div>
+
+  <script>
+    (async function verifyPurchase() {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id');
+      const loading = document.getElementById('download-loading');
+      const link = document.getElementById('download-link');
+      const meta = document.getElementById('download-meta');
+      const error = document.getElementById('download-error');
+
+      if (!sessionId) {
+        // Direct visit without purchase — show download anyway (free access still works)
+        loading.style.display = 'none';
+        link.style.display = 'inline-flex';
+        meta.style.display = 'block';
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/verify?session_id=${sessionId}`);
+        const data = await res.json();
+
+        if (data.paid) {
+          loading.style.display = 'none';
+          link.href = data.downloadUrl;
+          link.style.display = 'inline-flex';
+          meta.style.display = 'block';
+        } else {
+          loading.style.display = 'none';
+          error.textContent = 'Payment not confirmed yet. Refresh in a moment or contact scott@clawprint.dev.';
+          error.style.display = 'block';
+        }
+      } catch (e) {
+        loading.style.display = 'none';
+        link.style.display = 'inline-flex';
+        meta.style.display = 'block';
+      }
+    })();
+  </script>
 
 </body>
 </html>
