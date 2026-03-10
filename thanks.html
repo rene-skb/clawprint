@@ -6,34 +6,34 @@
   <title>Clawprint — You're In</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.css" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #fafaf9;
+      --bg: #f8f6f3;
       --surface: #ffffff;
-      --surface-warm: #f5f3f0;
-      --border: #e8e5e0;
-      --border-light: #f0ede8;
+      --surface-warm: #f3f1ed;
+      --border: #e8e4de;
+      --border-light: #eeebe6;
       --text: #1a1a1a;
-      --text-muted: rgba(26,26,26,0.55);
-      --text-dim: rgba(26,26,26,0.35);
-      --accent: #7c6daa;
-      --accent-light: #9e96b8;
-      --accent-bg: rgba(124,109,170,0.06);
-      --accent-bg-hover: rgba(124,109,170,0.1);
-      --green: #3d8c5c;
+      --text-muted: #6b6660;
+      --text-dim: #a8a29e;
+      --accent: #2563eb;
+      --accent-soft: rgba(37,99,235,0.07);
+      --green: #16a34a;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Geist', -apple-system, sans-serif;
       --mono: 'JetBrains Mono', monospace;
-      --sans: 'Space Grotesk', -apple-system, sans-serif;
     }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--sans);
-      font-size: 19px;
-      line-height: 1.6;
+      font-size: 17px;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -43,7 +43,6 @@
       padding: 0 24px;
     }
 
-    /* Nav */
     nav {
       display: flex;
       align-items: center;
@@ -52,27 +51,27 @@
     }
 
     .logo {
-      font-family: var(--mono);
-      font-size: 15px;
-      font-weight: 500;
+      font-family: var(--serif);
+      font-size: 20px;
       color: var(--text);
       letter-spacing: -0.02em;
     }
 
     .logo span {
+      font-style: italic;
       color: var(--accent);
     }
 
     .nav-tag {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-dim);
+      letter-spacing: 0.06em;
+      background: var(--accent-soft);
       padding: 3px 8px;
-      border: 1px solid var(--border);
       border-radius: 4px;
     }
 
-    /* Thank you content */
     .thanks {
       min-height: 80vh;
       display: flex;
@@ -87,9 +86,10 @@
     }
 
     .thanks h1 {
+      font-family: var(--serif);
       font-size: 36px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
+      font-weight: 400;
+      letter-spacing: -0.025em;
       line-height: 1.15;
       margin-bottom: 16px;
     }
@@ -100,9 +100,9 @@
       line-height: 1.6;
       margin-bottom: 48px;
       max-width: 480px;
+      font-weight: 400;
     }
 
-    /* Download card */
     .download-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -112,10 +112,10 @@
     }
 
     .download-card h2 {
+      font-family: var(--sans);
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 500;
       margin-bottom: 8px;
-      letter-spacing: -0.01em;
     }
 
     .download-card p {
@@ -123,6 +123,7 @@
       color: var(--text-muted);
       margin-bottom: 24px;
       line-height: 1.55;
+      font-weight: 400;
     }
 
     .download-btn {
@@ -130,18 +131,19 @@
       align-items: center;
       gap: 8px;
       padding: 14px 28px;
-      background: var(--accent);
+      background: var(--text);
       color: #fff;
       text-decoration: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-family: var(--sans);
       font-size: 15px;
-      font-weight: 600;
-      transition: background 0.2s ease;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .download-btn:hover {
-      background: #6b5c99;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     }
 
     .download-meta {
@@ -151,7 +153,6 @@
       color: var(--text-dim);
     }
 
-    /* Getting started steps */
     .getting-started {
       background: var(--surface-warm);
       border-radius: 12px;
@@ -160,10 +161,10 @@
     }
 
     .getting-started h2 {
+      font-family: var(--sans);
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 500;
       margin-bottom: 20px;
-      letter-spacing: -0.01em;
     }
 
     .step {
@@ -189,18 +190,20 @@
       font-size: 15px;
       color: var(--text-muted);
       line-height: 1.55;
+      font-weight: 400;
     }
 
     .step-text strong {
       color: var(--text);
+      font-weight: 500;
     }
 
-    /* Support section */
     .support {
       font-size: 15px;
       color: var(--text-muted);
       line-height: 1.6;
       margin-bottom: 48px;
+      font-weight: 400;
     }
 
     .support a {
@@ -212,7 +215,6 @@
       text-decoration: underline;
     }
 
-    /* Footer */
     footer {
       padding: 40px 0;
       border-top: 1px solid var(--border);
@@ -230,10 +232,9 @@
     }
 
     footer a:hover {
-      color: var(--text);
+      color: var(--accent);
     }
 
-    /* Mobile */
     @media (max-width: 600px) {
       .thanks { padding: 48px 0; }
       .thanks h1 { font-size: 28px; }
@@ -244,31 +245,27 @@
 <body>
 
   <div class="container">
-    <!-- Nav -->
     <nav>
       <div class="logo">claw<span>print</span></div>
       <div class="nav-tag">for OpenClaw</div>
     </nav>
 
-    <!-- Thank You -->
     <section class="thanks">
       <div class="thanks-icon">🐾</div>
       <h1>You're in. Let's make it yours.</h1>
       <p class="sub">Your agent is about to know you better than any AI you've ever used. Here's everything you need to get started.</p>
 
-      <!-- Download (gated by payment verification) -->
       <div class="download-card" id="download-card">
         <h2>Download Clawprint</h2>
-        <p>The full package — personality assessment, behavioral calibration, memory system, daily routines, and everything else. Unzip and follow the setup guide.</p>
+        <p>The full package: personality assessment, behavioral calibration guide, and everything you need to configure your agent. Unzip and follow the setup guide.</p>
         <div id="download-loading" style="color: var(--text-muted); font-size: 15px;">Verifying your purchase...</div>
         <a href="/clawprint-v1.0.zip" class="download-btn" id="download-link" download style="display: none;">
           <span>↓</span> Download Clawprint v1.0
         </a>
-        <div class="download-meta" id="download-meta" style="display: none;">ZIP · 31KB · 19 files · Works with any OpenClaw setup</div>
+        <div class="download-meta" id="download-meta" style="display: none;">ZIP · Works with any OpenClaw setup</div>
         <div id="download-error" style="display: none; color: #c0392b; font-size: 15px; margin-top: 8px;"></div>
       </div>
 
-      <!-- Getting Started -->
       <div class="getting-started">
         <h2>Quick start</h2>
         <div class="step">
@@ -277,25 +274,23 @@
         </div>
         <div class="step">
           <div class="step-num">2.</div>
-          <div class="step-text"><strong>Read SETUP.md</strong> — it walks you through everything in about 15 minutes</div>
+          <div class="step-text"><strong>Read SETUP.md</strong> — it walks you through everything in about 10 minutes</div>
         </div>
         <div class="step">
           <div class="step-num">3.</div>
-          <div class="step-text"><strong>Start the Deep Self assessment</strong> — your agent will guide you through a 45-minute conversation that changes everything</div>
+          <div class="step-text"><strong>Start the Deep Self assessment</strong> — a 25-minute conversation that changes how your agent works with you</div>
         </div>
         <div class="step">
           <div class="step-num">4.</div>
-          <div class="step-text"><strong>Watch it click.</strong> Your agent adapts its SOUL.md, calibrates to your personality, and starts working the way you do</div>
+          <div class="step-text"><strong>Watch it click.</strong> Your agent calibrates to your personality and starts working the way you think</div>
         </div>
       </div>
 
-      <!-- Support -->
       <div class="support">
-        Questions? Reach out to <a href="mailto:scott@clawprint.dev">scott@clawprint.dev</a> — we're here to help you get set up. Join the <a href="https://discord.com/invite/clawd">OpenClaw community</a> to connect with other builders.
+        Questions? Reach out to <a href="mailto:scott@clawprint.dev">scott@clawprint.dev</a>. Join the <a href="https://discord.com/invite/clawd">OpenClaw community</a> to connect with other builders.
       </div>
     </section>
 
-    <!-- Footer -->
     <footer>
       <p>Clawprint by <a href="https://scottkbell.com">Scott Bell</a> · Built for <a href="https://openclaw.ai">OpenClaw</a></p>
     </footer>
@@ -311,7 +306,6 @@
       const error = document.getElementById('download-error');
 
       if (!sessionId) {
-        // Direct visit without purchase — show download anyway (free access still works)
         loading.style.display = 'none';
         link.style.display = 'inline-flex';
         meta.style.display = 'block';
