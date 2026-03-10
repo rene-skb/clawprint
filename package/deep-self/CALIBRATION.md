@@ -67,11 +67,9 @@ The report should include:
 ## Holland Code: [3 letters] — [Full names]
 [Paragraph on what this means for their work style and ideal environment]
 
-## Zone of Genius
-[One clear sentence naming their genius]
+## Your Throughline
+[One clear sentence naming what they uniquely do — the thread running through everything]
 
-## The Throughline
-[2-3 sentences connecting everything — the thread running through their life]
 
 ## Growth Edges
 [Honest, compassionate notes on where they tend to get stuck and what growth looks like for them]
@@ -157,7 +155,7 @@ Write rules for each of these scenarios:
 
 Open SOUL.md and replace the Behavioral Calibration section with:
 
-1. Their full profile (Big Five scores, Enneagram, Holland Code, Zone of Genius)
+1. Their full profile (Big Five scores, Enneagram, Holland Code, Throughline)
 2. Your calibrated traits (with match/complement reasoning)
 3. All decision framework rules
 

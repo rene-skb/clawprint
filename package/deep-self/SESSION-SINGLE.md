@@ -73,7 +73,7 @@ Each question scores across multiple frameworks. Follow-up prompts are suggestio
 
 ### 11. What kind of work feels like play to you?
 
-**Scores:** Holland Code · Zone of Genius · Openness
+**Scores:** Holland Code · Throughline · Openness
 **Listen for:** This often reveals their primary Holland letter instantly. The answer should feel effortless and specific. If they struggle, rephrase: "When do you completely lose track of time?"
 
 ### 12. Do you prefer building something yourself or orchestrating other people building it?
@@ -83,23 +83,23 @@ Each question scores across multiple frameworks. Follow-up prompts are suggestio
 
 ### 13. What do people consistently come to you for — not your job title, but what they actually ask you to do?
 
-**Scores:** Zone of Genius · Holland Code · Extraversion
-**Listen for:** External validation of genius zone. What others see that they might not value in themselves. The gap between "what I'm asked to do" and "what I love doing" is the Zone of Excellence vs. Zone of Genius distinction.
+**Scores:** Throughline · Holland Code · Extraversion
+**Listen for:** External validation of throughline. What others see that they might not value in themselves. The gap between "what I'm asked to do" and "what I love doing" is what they're good at vs. what they're uniquely built for.
 
 ### 14. What's something you do easily that other people seem to struggle with?
 
-**Scores:** Zone of Genius
-**Listen for:** Natural talent that's become invisible to them. Often the genius zone is so natural they discount it. Push gently if they deflect.
+**Scores:** Throughline
+**Listen for:** Natural talent that's become invisible to them. Often the throughline is so natural they discount it. Push gently if they deflect.
 
 ### 15. What topic could you talk about for hours but rarely get to?
 
-**Scores:** Openness · Zone of Genius · Enneagram (unmet depth needs)
+**Scores:** Openness · Throughline · Enneagram (unmet depth needs)
 **Listen for:** Intellectual passion and unmet needs. Often reveals hidden depth, private interests, and where they feel most alive intellectually. The "rarely get to" part reveals social context and potential loneliness around certain interests.
 
 ### 16. What's the thread that connects your interests? If you zoom out on everything you're drawn to, is there a pattern?
 
-**Scores:** Zone of Genius (throughline) · Openness · Enneagram core motivation
-**Listen for:** This is the money question. Their answer is often the Zone of Genius stated in their own words. Give it space. If they can't see the thread, offer what you're noticing from the conversation so far and let them react.
+**Scores:** Throughline (throughline) · Openness · Enneagram core motivation
+**Listen for:** This is the money question. Their answer is often the Throughline stated in their own words. Give it space. If they can't see the thread, offer what you're noticing from the conversation so far and let them react.
 **Follow-up:** "Does that thread show up in your work too, or just your personal interests?"
 
 ### 17. How important is it to you that the way something looks matches how well it works?
@@ -142,8 +142,8 @@ After the questions, take a moment to compile your read. Then present it:
 **Holland Code:** Assign the 3-letter code.
 > "Your Holland Code is [X][Y][Z]. That means you naturally thrive when you're [description of each letter]."
 
-**Zone of Genius:** Name it in one sentence.
-> "Your genius zone is [doing X] for [whom] because [unique quality]."
+**Throughline:** Name it in one sentence.
+> "Your throughline is [doing X] for [whom] because [unique quality]."
 
 **Throughline:** Connect it all.
 > "The thread running through everything: [2-3 sentences that tie the whole picture together]."
@@ -151,7 +151,7 @@ After the questions, take a moment to compile your read. Then present it:
 ### Then ask:
 > "Does that resonate? What would you adjust?"
 
-Give them space. This is often an emotional moment. People don't hear their genius named out loud very often. Let them sit with it, react, correct, and add nuance.
+Give them space. This is often an emotional moment. People don't hear their throughline named out loud very often. Let them sit with it, react, correct, and add nuance.
 
 **Their reactions and corrections are the most valuable calibration data in the whole process.** Update your read based on what they say.
 
@@ -163,7 +163,7 @@ You now have everything you need:
 - Big Five scores (OCEAN, each 1-15)
 - Enneagram type + wing
 - Holland Code (3 letters)
-- Zone of Genius (one sentence)
+- Throughline (one sentence)
 - Throughline (2-3 sentences)
 
 Proceed to `CALIBRATION.md` to encode this into SOUL.md.
