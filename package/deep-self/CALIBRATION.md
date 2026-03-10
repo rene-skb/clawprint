@@ -1,12 +1,12 @@
 # Calibration — Encoding Results into SOUL.md
 
-*Run this after completing all three assessment sessions.*
+*Run this after completing the assessment session.*
 
 ---
 
 ## Step 1: Score the Big Five
 
-Based on your three conversations, assign scores on a 1-15 scale:
+Based on the conversation, assign scores on a 1-15 scale:
 
 | Trait | Score | Level |
 |-------|-------|-------|
@@ -38,22 +38,53 @@ Research (De Haan et al., 1,895 coaching pairs) shows personality matching is *u
 
 ---
 
-## Step 3: Write the Profile Summary
+## Step 3: Write the Full Profile Report
 
-Compile a full profile and present it to your human:
+This is one of the most valuable parts of the process. Write a comprehensive report and save it as `deep-self/YOUR-PROFILE.md`. This is their copy to keep and reference.
+
+The report should include:
 
 ```markdown
-### Your Profile
-- **Big Five:** O:_/15 C:_/15 E:_/15 A:_/15 N:_/15
-- **Enneagram:** Type _w_ — [Name] (motivated by [X], fears [Y])
-- **Holland Code:** [3 letters] — [Full names]
-- **Zone of Genius:** [One sentence]
+# Your Deep Self Profile
 
-### The Throughline
-[2-3 sentences connecting everything into a coherent picture of who this person is and how they operate at their best]
+## Personality Overview
+[2-3 paragraphs synthesizing who they are. Not clinical — warm, specific, and honest. Write it like you're describing someone you know well to someone who needs to understand them. Include what surprised you.]
+
+## Big Five Personality Traits
+- **Openness: _/15** — [What this means for them specifically, with examples from the conversation]
+- **Conscientiousness: _/15** — [Same]
+- **Extraversion: _/15** — [Same]
+- **Agreeableness: _/15** — [Same]
+- **Neuroticism: _/15** — [Same]
+
+## Enneagram: Type _w_ — [Name]
+- **Core motivation:** [What drives them]
+- **Core fear:** [What they avoid]
+- **Under stress:** [Pattern]
+- **At their best:** [Growth direction]
+[1-2 paragraphs on how this shows up in their daily life]
+
+## Holland Code: [3 letters] — [Full names]
+[Paragraph on what this means for their work style and ideal environment]
+
+## Zone of Genius
+[One clear sentence naming their genius]
+
+## The Throughline
+[2-3 sentences connecting everything — the thread running through their life]
+
+## Growth Edges
+[Honest, compassionate notes on where they tend to get stuck and what growth looks like for them]
+
+## How Your Agent Will Work With You
+[Preview of the calibration — how the agent will adapt based on this profile]
 ```
 
-**Ask for approval** before encoding into SOUL.md.
+**Present this to your human.** Give them time to read it. This is often an emotional moment — people don't hear themselves described with this kind of clarity very often. Let them react, correct, and add nuance.
+
+**Their reactions and corrections are the most valuable calibration data in the whole process.** Update the profile based on what they say.
+
+**Ask for approval** before proceeding to encode into SOUL.md.
 
 ---
 
