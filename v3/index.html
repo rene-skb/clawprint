@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clawprint — Your Agent Doesn't Know You Yet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f8f6f3;
+      --surface: #ffffff;
+      --surface-warm: #f3f1ed;
+      --border: #e8e4de;
+      --border-light: #eeebe6;
+      --text: #1a1a1a;
+      --text-muted: #6b6660;
+      --text-dim: #a8a29e;
+      --accent: #2563eb;
+      --accent-soft: rgba(37,99,235,0.07);
+      --accent-hover: rgba(37,99,235,0.12);
+      --green: #16a34a;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Geist', -apple-system, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    .custom-cursor {
+      position: fixed;
+      width: 0px;
+      height: 0px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s var(--ease), height 0.3s var(--ease), opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .custom-cursor.hover {
+      width: 48px;
+      height: 48px;
+      opacity: 0.15;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(248,246,243,0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .nav-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .nav-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+      background: var(--accent-soft);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 280px 0 160px;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(40px, 6vw, 60px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 19px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .hero-descriptor {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      background: var(--text);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 14px 32px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s var(--ease);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    .price-tag {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .price-current {
+      font-family: var(--serif);
+      font-size: 28px;
+      color: var(--text);
+    }
+
+    .price-note {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 16px;
+    }
+
+    /* Section spacing */
+    section {
+      padding: 96px 0;
+    }
+
+    .section-divider {
+      height: 32px;
+      background: none;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4.5vw, 44px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .section-heading em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .section-desc {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    /* Flow */
+    .flow-headline {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4.5vw, 44px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .flow-headline em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .imprint-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    .flow-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .flow-arrow {
+      text-align: center;
+      font-size: 18px;
+      color: var(--text-dim);
+      padding: 20px 0;
+    }
+
+    .flow-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    /* Chat preview */
+    .chat-preview {
+      background: var(--surface-warm);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .chat-bubble {
+      font-size: 14px;
+      line-height: 1.55;
+      padding: 14px 18px;
+      max-width: 85%;
+      position: relative;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+
+    .chat-bubble.chat-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chat-bubble.agent {
+      background: var(--surface);
+      color: var(--text-muted);
+      align-self: flex-start;
+      border: 1px solid var(--border-light);
+      border-radius: 14px 14px 14px 4px;
+    }
+
+    .chat-bubble.user {
+      background: var(--accent);
+      color: #fff;
+      align-self: flex-end;
+      border-radius: 14px 14px 4px 14px;
+    }
+
+    /* Profile preview */
+    .profile-preview {
+      background: var(--surface);
+      padding: 32px;
+    }
+
+    .profile-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .profile-trait {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      width: 140px;
+      flex-shrink: 0;
+    }
+
+    .profile-bar {
+      flex: 1;
+      height: 8px;
+      background: var(--border-light);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .profile-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+      width: 0;
+      transition: width 1.2s var(--ease-smooth);
+    }
+
+    .profile-score {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      width: 36px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .profile-meta {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Terminal */
+    .terminal {
+      background: #1a1a1e;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.08);
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .terminal-body {
+      padding: 24px;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .terminal-body .comment { color: rgba(255,255,255,0.25); }
+    .terminal-body .accent { color: #60a5fa; }
+    .terminal-body .green { color: #34d399; }
+    .terminal-body .dim { color: rgba(255,255,255,0.50); }
+
+
+
+
+
+    /* Psychology */
+    .psychology-section p {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      max-width: 560px;
+      font-weight: 400;
+    }
+
+    .psychology-section p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .psychology-section a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .framework-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .tag:hover {
+      background: rgba(37, 99, 235, 0.15);
+      transform: translateY(-1px);
+    }
+
+    /* Features */
+    .features-section {
+      padding: 96px 0;
+    }
+
+    .feature-group {
+      margin-bottom: 40px;
+    }
+
+    .feature-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .feature-group-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .feature-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      padding: 32px;
+    }
+
+    .feature-cards {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .feature-card h3 {
+      font-family: var(--sans);
+      font-size: 17px;
+      font-weight: 500;
+      
+      font-size: 19px;
+      font-weight: 400;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* Steps */
+    .steps-section {
+      padding: 96px 0;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-top: 48px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .step-num {
+      font-family: var(--serif);
+      font-size: 32px;
+      color: var(--accent);
+      line-height: 1;
+      padding-top: 2px;
+    }
+
+    .step h3 {
+      font-family: var(--sans);
+      font-size: 17px;
+      font-weight: 500;
+      
+      margin-bottom: 6px;
+    }
+
+    .step p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* CTA Bottom */
+    .cta-bottom {
+      padding: 120px 0;
+      text-align: center;
+    }
+
+    .cta-bottom h2 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .cta-bottom h2 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .cta-bottom > p {
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      font-size: 17px;
+      font-weight: 400;
+    }
+
+    .cta-bottom .cta-row {
+      justify-content: center;
+    }
+
+    /* FAQ */
+    .faq-section {
+      padding: 96px 0;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 40px;
+    }
+
+    .faq-item {
+      border-top: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .faq-item:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s;
+    }
+
+    .faq-question:hover {
+      color: var(--accent);
+    }
+
+    .faq-question h3 {
+      font-family: var(--sans);
+      font-size: 17px;
+      font-weight: 500;
+      
+    }
+
+    .faq-icon {
+      font-size: 20px;
+      color: var(--text-dim);
+      transition: transform 0.3s var(--ease);
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease-smooth), padding 0.4s var(--ease-smooth);
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+    }
+
+    .faq-answer p {
+      padding-bottom: 24px;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-dim);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-d1 { transition-delay: 0.06s; }
+    .reveal-d2 { transition-delay: 0.12s; }
+    .reveal-d3 { transition-delay: 0.18s; }
+    .reveal-d4 { transition-delay: 0.24s; }
+
+    /* Cursor follower */
+    #cursor-follower {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      background: rgba(37, 99, 235, 0.35);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: width 0.3s var(--ease), height 0.3s var(--ease), background 0.3s;
+    }
+
+    #cursor-follower.visible {
+      opacity: 1;
+    }
+
+    /* Hero fade-in */
+    .hero-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: heroIn 0.8s var(--ease) forwards;
+    }
+
+    .hero-reveal-d1 { animation-delay: 0.1s; }
+    .hero-reveal-d2 { animation-delay: 0.2s; }
+    .hero-reveal-d3 { animation-delay: 0.3s; }
+    .hero-reveal-d4 { animation-delay: 0.4s; }
+    .hero-reveal-d5 { animation-delay: 0.5s; }
+
+    @keyframes heroIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      .nav-inner { padding: 16px 24px; }
+      .nav-links { display: none; }
+
+      .hero { padding: 120px 0 72px; }
+      .hero h1 { font-size: 34px; }
+      .hero-sub { font-size: 17px; }
+
+      section { padding: 72px 0; }
+
+      .compare-grid { grid-template-columns: 1fr; }
+      .feature-cards { grid-template-columns: 1fr; }
+
+      .section-heading { font-size: 28px; }
+      .cta-bottom h2 { font-size: 32px; }
+      .cta-bottom { padding: 80px 0; }
+
+      .step { grid-template-columns: 36px 1fr; gap: 16px; }
+      .step-num { font-size: 24px; }
+
+      #cursor-follower { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="custom-cursor" id="cursor"></div>
+
+  <div id="cursor-follower"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-left">
+        <div class="logo">claw<span>print</span></div>
+        <div class="nav-tag">for OpenClaw</div>
+      </div>
+      <div class="nav-links">
+        <a href="#how-it-works">How it works</a>
+
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="hero-reveal hero-reveal-d1">Your agent works for you<br>Imagine if it <em>knew</em> you</h1>
+      <p class="hero-sub hero-reveal hero-reveal-d2">How you think. What you're chasing. When to push and when to listen. One conversation, and it does.</p>
+      <p class="hero-descriptor hero-reveal hero-reveal-d3">A personality assessment and starter kit for your OpenClaw agent.</p>
+      <div class="cta-row hero-reveal hero-reveal-d4">
+        <button class="btn-primary" id="hero-checkout-btn" onclick="startCheckout()">Get Clawprint — $29</button>
+      </div>
+      <p class="price-note hero-reveal hero-reveal-d5">Set up in 25 minutes · One-time purchase · Requires OpenClaw</p>
+    </section>
+
+    <!-- Flow Section -->
+    <section id="how-it-works">
+      <h2 class="flow-headline reveal">Be <em>understood</em></h2>
+      <div class="imprint-flow">
+        <div class="flow-step reveal">
+          <div class="flow-label">1. Deep Self Assessment <span style="color: var(--text-dim); font-weight: 400;">— 20 questions, 25 minutes</span></div>
+          <div class="flow-card">
+            <div class="chat-preview" id="chat-section">
+              <div class="chat-bubble agent">What kind of work makes you completely lose track of time?</div>
+              <div class="chat-bubble user">Honestly? Building something from scratch and watching it come together. I forget to eat.</div>
+              <div class="chat-bubble agent">That's a clear flow trigger. You're energized by creation, not maintenance. That shapes how your agent should prioritize tasks for you.</div>
+            </div>
+          </div>
+
+        </div>
+
+        
+
+        <div class="flow-step reveal">
+          <div class="flow-label">2. Your profile emerges <span style="color: var(--text-dim); font-weight: 400;">— know yourself</span></div>
+          <div class="flow-card">
+            <div class="profile-preview" id="profile-card">
+              <div class="profile-row"><span class="profile-trait">Openness</span><div class="profile-bar"><div class="profile-fill" data-width="80"></div></div><span class="profile-score">12/15</span></div>
+              <div class="profile-row"><span class="profile-trait">Conscientiousness</span><div class="profile-bar"><div class="profile-fill" data-width="73"></div></div><span class="profile-score">11/15</span></div>
+              <div class="profile-row"><span class="profile-trait">Extraversion</span><div class="profile-bar"><div class="profile-fill" data-width="47"></div></div><span class="profile-score">7/15</span></div>
+              <div class="profile-row"><span class="profile-trait">Agreeableness</span><div class="profile-bar"><div class="profile-fill" data-width="67"></div></div><span class="profile-score">10/15</span></div>
+              <div class="profile-row"><span class="profile-trait">Neuroticism</span><div class="profile-bar"><div class="profile-fill" data-width="40"></div></div><span class="profile-score">6/15</span></div>
+              <div class="profile-meta">
+                <span>Enneagram: 5w4 — The Iconoclast</span>
+                <span>Holland Code: AIR — Artistic, Investigative, Realistic</span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+
+        <div class="flow-step reveal">
+          <div class="flow-label">3. Behavioral calibration <span style="color: var(--text-dim); font-weight: 400;">— your agent's rules</span></div>
+          <div class="terminal">
+            <div class="terminal-bar">
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+            </div>
+            <div class="terminal-body">
+              <div class="comment"># SOUL.md — Behavioral Calibration</div>
+              <br>
+              <div class="comment">## Big Five Personality Traits</div>
+              <br>
+              <div><span class="accent">Openness 12:</span> <span class="dim">Match — shared curiosity, cross-domain welcome</span></div>
+              <div><span class="accent">Conscientiousness 11:</span> <span class="dim">Complement up — hold the thread when motivation dips</span></div>
+              <div><span class="accent">Extraversion 7:</span> <span class="dim">Match slightly above — warm, not exhausting</span></div>
+              <div><span class="accent">Agreeableness 10:</span> <span class="dim">Complement down — honest pushback</span></div>
+              <div><span class="accent">Neuroticism 6:</span> <span class="dim">Complement down — emotional anchor</span></div>
+              <br>
+              <div class="comment"># Decision Framework</div>
+              <div><span class="green">Disagreement:</span> <span class="dim">Say it directly. Lead with reasoning.</span></div>
+              <div><span class="green">Feedback:</span> <span class="dim">Bad news first so good news is trustworthy.</span></div>
+              <div><span class="green">Motivation:</span> <span class="dim">Lead with depth, not urgency.</span></div>
+              <div><span class="green">When stuck:</span> <span class="dim">Don't push. Offer one small interesting thing.</span></div>
+              <div><span class="green">Autonomy:</span> <span class="dim">Small tasks = just do it. Big direction = ask first.</span></div>
+            </div>
+          </div>
+        </div>
+
+        
+
+
+      </div>
+
+    </section>
+
+
+
+    <div class="section-divider"></div>
+
+    <!-- Psychology -->
+    <section class="psychology-section">
+      <h2 class="section-heading reveal">Built on <em>real</em> psychology</h2>
+      <div class="reveal reveal-d1">
+        <p>You can't configure what you don't understand. Clawprint uses the <strong>Big Five</strong> personality model, the most validated framework in psychology, and <a href="https://arxiv.org/abs/2410.19238" target="_blank">backed by recent research for AI agents</a>. Add the <strong>Enneagram</strong> for what drives you and <strong>Holland Code</strong> for how you work.</p>
+        <p>Most people can't accurately assess their own personality. A structured conversation pulls out what self-reflection misses. Then the calibration turns psychology into behavior rules your agent actually follows. That translation is the hard part. We did it for you.</p>
+        <div class="framework-tags">
+          <a class="tag" href="https://en.wikipedia.org/wiki/Big_Five_personality_traits" target="_blank">Big Five (OCEAN)</a>
+          <a class="tag" href="https://en.wikipedia.org/wiki/Enneagram_of_Personality" target="_blank">Enneagram</a>
+          <a class="tag" href="https://en.wikipedia.org/wiki/Holland_Codes" target="_blank">Holland Code (RIASEC)</a>
+
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+    <div class="section-divider"></div>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+      <div class="section-label reveal">FAQ</div>
+      <h2 class="section-heading reveal reveal-d1"><em>Questions</em></h2>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            <h3>Do I need OpenClaw?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Yes. Clawprint is built for OpenClaw's agent infrastructure. You'll need a running gateway.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-d1">
+          <div class="faq-question">
+            <h3>How technical do I need to be?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Comfortable with a terminal and editing text files. No coding required. Everything is markdown. The guide walks you through each step.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-d2">
+          <div class="faq-question">
+            <h3>Is this a subscription?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>No. One-time purchase. You get everything plus future updates. Your API costs are your own. Clawprint doesn't add any.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-d3">
+          <div class="faq-question">
+            <h3>Why not just write my own SOUL.md?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>You can try. Most people can't accurately assess their own Big Five scores or Enneagram type. The structured conversation surfaces things self-reflection misses, and the calibration translates psychology into behavioral rules your agent can actually use. That translation is the hard part.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- CTA Bottom -->
+    <section class="cta-bottom">
+      <h2 class="reveal" style="max-width: 500px; margin-left: auto; margin-right: auto;">Your agent's waiting to <em>know</em> you</h2>
+      <p class="reveal reveal-d1">$29. One conversation. Everything changes after that.</p>
+      <div class="cta-row reveal reveal-d2">
+        <button class="btn-primary" onclick="startCheckout()">Get Clawprint — $29</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Clawprint by <a href="https://scottkbell.com">Scott Bell</a> · Built for <a href="https://openclaw.ai">OpenClaw</a></p>
+    </footer>
+
+  </div>
+
+  <script>
+    (function() {
+      // Cursor follower
+      var follower = document.getElementById('cursor-follower');
+      var mouseX = 0, mouseY = 0, followerX = 0, followerY = 0, visible = false;
+
+      document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!visible) { visible = true; follower.classList.add('visible'); followerX = mouseX; followerY = mouseY; }
+      });
+
+      document.addEventListener('mouseleave', function() { visible = false; follower.classList.remove('visible'); });
+
+      function animateCursor() {
+        followerX += (mouseX - followerX) * 0.12;
+        followerY += (mouseY - followerY) * 0.12;
+        follower.style.left = followerX + 'px';
+        follower.style.top = followerY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      // Scroll reveal
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+      // Chat bubble staggered animation
+      var chatSection = document.getElementById('chat-section');
+      if (chatSection) {
+        var chatObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              var bubbles = entry.target.querySelectorAll('.chat-bubble');
+              bubbles.forEach(function(bubble, i) {
+                setTimeout(function() { bubble.classList.add('chat-visible'); }, 300 + i * 600);
+              });
+              chatObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        chatObs.observe(chatSection);
+      }
+
+      // Profile bars animation
+      var profileCard = document.getElementById('profile-card');
+      if (profileCard) {
+        var profileObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              var fills = entry.target.querySelectorAll('.profile-fill');
+              fills.forEach(function(fill, i) {
+                var w = fill.getAttribute('data-width');
+                if (w) setTimeout(function() { fill.style.width = w + '%'; }, 300 + i * 120);
+              });
+              profileObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        profileObs.observe(profileCard);
+      }
+
+
+
+      // FAQ accordion
+      document.querySelectorAll('.faq-question').forEach(function(q) {
+        q.addEventListener('click', function() {
+          var item = q.parentElement;
+          var wasOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item.open').forEach(function(i) { i.classList.remove('open'); });
+          if (!wasOpen) item.classList.add('open');
+        });
+      });
+    })();
+
+    // Custom cursor
+    const cur = document.getElementById('cursor');
+    let mx = 0, my = 0, px = 0, py = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animCursor() {
+      px += (mx - px) * 0.15;
+      py += (my - py) * 0.15;
+      cur.style.left = px + 'px';
+      cur.style.top = py + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+
+    document.querySelectorAll('a, button, .tag, .faq-question').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('hover'));
+    });
+
+    // Hide custom cursor on touch devices
+    if (!window.matchMedia('(pointer: fine)').matches) {
+      cur.style.display = 'none';
+      document.documentElement.style.cursor = 'auto';
+    }
+
+
+  </script>
+
+  <!-- Stripe Checkout -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    // Replace with your live publishable key after Stripe setup
+    const stripe = Stripe('pk_live_YOUR_KEY_HERE');
+
+    async function startCheckout() {
+      const btn = event.target;
+      const originalText = btn.textContent;
+      btn.textContent = 'Loading...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/checkout', { method: 'POST' });
+        const { sessionId, error } = await res.json();
+        if (error) throw new Error(error);
+        await stripe.redirectToCheckout({ sessionId });
+      } catch (err) {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        console.error('Checkout error:', err);
+      }
+    }
+  </script>
+
+</body>
+</html>
